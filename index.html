@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My GitHub Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+</head>
+<body style="margin:0">
+  <img src = './assets/image.png' width="100%" alt = 'My GitHub Website'>
+</body>
+</html>
+<script type='text/javascript'>
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+
+			embeddedservice_bootstrap.init(
+				'00DKj00000UY7YZ',
+				'Messaging_for_In_App_Web',
+				'https://tr1755503902062.my.site.com/ESWMessagingforInAppW1756198054398',
+				{
+					scrt2URL: 'https://tr1755503902062.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+</script>
+<script type='text/javascript' src='https://tr1755503902062.my.site.com/ESWMessagingforInAppW1756198054398/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
