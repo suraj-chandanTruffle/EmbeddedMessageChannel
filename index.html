@@ -1,29 +1,198 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>My GitHub Website</title>
+  <title>
+    Conviva
+  </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="icon" type="image/png" href="./assets/ConvivaNew.png">
 </head>
-<body style="margin:0">
-  <img src = './assets/image.png' width="100%" alt = 'My GitHub Website'>
-</body>
-</html>
-<script type='text/javascript'>
-	function initEmbeddedMessaging() {
+
+<body style="margin:0;height: 100vh;background: #031b2e;">
+  <div class="agentforce-container">
+    <div
+      style="background-image: url('./assets/convivaHeader.png'); background-repeat: no-repeat; height:125px; background-position: center;">
+    </div>
+    <div id="convivaBodyImageId"
+      style="background-image: url('./assets/convivaBody.png'); background-repeat: no-repeat; height: 445px; background-position: center;">
+    </div>
+    <!--<div class="chatview" id="chatview" onclick="handleChatView()">chatview</div>-->
+    <div id="agentsubcontainerId" class="agentforce-subcontainer">
+      <div class="agent-helpcontainer">
+        <span class="agent-helpFont">How can </span>
+        <span class="agent-convivaFont">Conviva Agent</span>
+        <span class="agent-helpFont"> help?</span>
+      </div>
+      <div class="agent-input-search-container">
+        <div class="agent-input-container">
+          <input id="agentInput" class="agent-input-font" type="text" placeholder="Ask Anything....">
+        </div>
+        <div class="agent-search-button-container" onclick="doAgentforce()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      style="background-image: url('./assets/convivaFooter.png'); background-repeat: no-repeat; height: 125px; background-position: center;">
+    </div>
+  </div>
+  <div class="embeddedservicecontainer">
+    <script type='text/javascript'>
+      document.getElementById("agentInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          doCallAgentforce(e.target.value);
+        }
+      });
+      function doAgentforce() {
+        let inputDocument = document.getElementById("agentInput");
+        if (inputDocument) {
+          doCallAgentforce(inputDocument.value);
+        }
+      }
+      function doCallAgentforce(value) {
+        embeddedservice_bootstrap.utilAPI.launchChat();
+      }
+		function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
-
+          	let isFirst = false;
 			embeddedservice_bootstrap.init(
-				'00DKj00000UY7YZ',
-				'Messaging_for_In_App_Web',
-				'https://tr1755503902062.my.site.com/ESWMessagingforInAppW1756198054398',
+				'00DKY00000IPwqR',
+				'Conviva',
+				'https://tr1756279625627.my.site.com/ESWConviva1758201713997',
 				{
-					scrt2URL: 'https://tr1755503902062.my.salesforce-scrt.com'
+					scrt2URL: 'https://tr1756279625627.my.salesforce-scrt.com'
 				}
 			);
+			window.addEventListener('onEmbeddedMessagingFirstBotMessageSent', function (event) {
+            isFirst = true;
+            let inputDocument = document.getElementById("agentInput");
+            if (inputDocument && inputDocument.value) {
+              embeddedservice_bootstrap.utilAPI.sendTextMessage(inputDocument.value);
+            }
+          });
+          window.addEventListener('onEmbeddedMessagingConversationStarted', function (event) {
+            setTimeout(() => {
+              if (!isFirst) {
+                let inputDocument = document.getElementById("agentInput");
+                if (inputDocument && inputDocument.value) {
+                  embeddedservice_bootstrap.utilAPI.sendTextMessage(inputDocument.value);
+                }
+              }
+            }, 8000);
+          });
 		} catch (err) {
 			console.error('Error loading Embedded Messaging: ', err);
 		}
-	};
-</script>
-<script type='text/javascript' src='https://tr1755503902062.my.site.com/ESWMessagingforInAppW1756198054398/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+	}; 
+    </script>
+<script type='text/javascript' src='https://tr1756279625627.my.site.com/ESWConviva1758201713997/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+</div>
+</body>
+
+</html>
+<style>
+  /*
+  .embeddedMessagingFrame.eswIsDesktop.isMaximized {
+    width: 75%;
+    position: absolute;
+    margin: 0 10%;
+    top: 20%;
+  }
+
+  .mobilesize {
+    display: none;
+  }
+
+  .desktopsize {
+    display: block;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .mobilesize {
+      display: block;
+    }
+
+    .desktopsize {
+      display: none;
+    }
+  }*/
+
+  .embeddedMessagingConversationButtonWrapper .embeddedMessagingConversationButton {
+    visibility: hidden;
+  }
+
+  .agentforce-container {
+    background-color: #001b2e;
+  }
+
+  .agentforce-subcontainer {
+    font-family: sans-serif;
+    text-align: center;
+    padding: 40px 10% 20px 10%
+  }
+
+  .agent-helpcontainer {
+    font-size: 28px;
+    font-weight: bold;
+    padding: 15px 0px;
+  }
+
+  .agent-helpFont {
+    color: white;
+  }
+
+  .agent-convivaFont {
+    color: #9cdc02;
+  }
+
+  .agent-input-font {
+    height: 40px;
+    font-size: 18px;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .agent-input-container {
+    display: inline-block;
+    width: 90%;
+  }
+
+  .agent-search-button-container {
+    display: inline-block;
+    cursor: pointer;
+    background-color: #ffffff;
+    border-radius: 0px 2px 2px 0px;
+    margin-left: -6px;
+    padding: 14.2px 6px 6.2px 4px;
+    border: 1px solid #767676;
+    border-left: none;
+  }
+
+  .agent-input-container input:focus-visible {
+    outline: none;
+  }
+
+  .agent-input-search-container {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .chatview {
+    position: absolute;
+    margin: 0 10%;
+    top: 22%;
+    color: white;
+    z-index: 999999999999;
+    text-align: right;
+    visibility: hidden;
+    right: 5%;
+    cursor: pointer;
+  }
+</style>
